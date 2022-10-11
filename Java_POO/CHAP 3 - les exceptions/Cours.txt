@@ -1,0 +1,9 @@
+Throw/try/catch
+
+Classe exception par défaut
+Il est préférable de créer des classes héritante de Exception pour gérer les différentes erreurs qu'on pourra rencontrer
+
+throw pour lever l'exception qui prend un paramètre
+Try contient toute les instructions qui peuvent lancer une exception
+Catch contient la gestion des exceptions
+1 bloc catch par type d'exception a gérer ( on passe en paramètre du catch le type de l'exception)

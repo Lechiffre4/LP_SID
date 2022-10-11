@@ -115,13 +115,14 @@ from article
 where numarticle not in 
 (select li.numarticle from lignecde li
 join commande co on co.numcommande= li.numcommande
-where co.date_commande like '%18')
+where co.date_commande like '%18');
 
 --38
 select cli.numclient, cli.rs_client, a.numarticle, a.designation
 from client cli
 join commande co on cli.numclient = co.numclient
-join article a on a.numarticle = co.numarticle
+join LIGNECDE lc on co.NUMCOMMANDE = lc.NUMCOMMANDE
+join article a on a.numarticle = lc.numarticle;
 
 -- 39
 Select cli.NUMCATEGORIE, ROUND(AVG(cli.CA_CLIENT),2) CA from CLIENT cli
@@ -134,6 +135,119 @@ join LIGNECDE L on co.NUMCOMMANDE = L.NUMCOMMANDE
 HAVING COUNT(L.NUMCOMMANDE) =
 (SELECT MAX(COUNT(L.NUMCOMMANDE)) from LIGNECDE L group by L.NUMCOMMANDE)
 group by co.NUMCOMMANDE;
+
+--41
+SELECT DISTINCT cli.NUMCLIENT, cli.RS_CLIENT from client cli
+join COMMANDE co on cli.NUMCLIENT = co.NUMCLIENT
+HAVING COUNT(co.NUMCOMMANDE) >= 2
+GROUP BY  cli.NUMCLIENT, cli.RS_CLIENT;
+
+--42
+SELECT cat.LIB_CATEGORIE, cli.NUMCLIENT, cli.RS_CLIENT from CLIENT cli
+right join CATEGORIE cat on cli.NUMCATEGORIE = cat.NUMCATEGORIE;
+
+--43
+SELECT cli.NUMCLIENT, cli.RS_CLIENT, cli.CA_CLIENT from CLIENT cli
+WHERE cli.CA_CLIENT <
+(select avg(cl.CA_CLIENT) from CLIENT cl
+join CATEGORIE ca on cl.NUMCATEGORIE = ca.NUMCATEGORIE
+where ca.NUMCATEGORIE = cli.NUMCATEGORIE
+group by ca.NUMCATEGORIE);
+
+--44
+SELECT a.NUMARTICLE, a.DESIGNATION, F.LIB_FAMILLE from ARTICLE a
+join FAMILLE F on a.NUMFAMILLE = F.NUMFAMILLE
+where a.CA_ARTICLE =
+      (SELECT MAX(art.CA_ARTICLE)
+      from ARTICLE art
+               join FAMILLE fa on fa.NUMFAMILLE = art.NUMFAMILLE
+      WHERE F.NUMFAMILLE = art.NUMFAMILLE
+      GROUP BY LIB_FAMILLE);
+
+--45
+SELECT cli.NUMCLIENT, cli.RS_CLIENT, cli.CA_CLIENT from CLIENT cli
+WHERE cli.CA_CLIENT <
+(select avg(cl.CA_CLIENT) from CLIENT cl
+join CATEGORIE ca on cl.NUMCATEGORIE = ca.NUMCATEGORIE
+where ca.NUMCATEGORIE = cli.NUMCATEGORIE
+group by ca.NUMCATEGORIE)
+union
+SELECT C2.NUMCLIENT, C2.RS_CLIENT, C2.CA_CLIENT from COMMANDE co
+join CLIENT C2 on co.NUMCLIENT = C2.NUMCLIENT
+HAVING COUNT(co.NUMCLIENT) = 1
+group by C2.NUMCLIENT, C2.RS_CLIENT, C2.CA_CLIENT;
+
+--46
+SELECT cli.NUMCLIENT, cli.RS_CLIENT, cli.CA_CLIENT from CLIENT cli
+WHERE cli.CA_CLIENT <
+(select avg(cl.CA_CLIENT) from CLIENT cl
+join CATEGORIE ca on cl.NUMCATEGORIE = ca.NUMCATEGORIE
+where ca.NUMCATEGORIE = cli.NUMCATEGORIE
+group by ca.NUMCATEGORIE)
+intersect
+SELECT C2.NUMCLIENT, C2.RS_CLIENT, C2.CA_CLIENT from COMMANDE co
+join CLIENT C2 on co.NUMCLIENT = C2.NUMCLIENT
+HAVING COUNT(co.NUMCLIENT) = 1
+group by C2.NUMCLIENT, C2.RS_CLIENT, C2.CA_CLIENT;
+
+--47
+SELECT cli.NUMCLIENT, cli.RS_CLIENT, cli.CA_CLIENT from CLIENT cli
+WHERE cli.CA_CLIENT <
+(select avg(cl.CA_CLIENT) from CLIENT cl
+join CATEGORIE ca on cl.NUMCATEGORIE = ca.NUMCATEGORIE
+where ca.NUMCATEGORIE = cli.NUMCATEGORIE
+group by ca.NUMCATEGORIE)
+minus
+SELECT C2.NUMCLIENT, C2.RS_CLIENT, C2.CA_CLIENT from COMMANDE co
+join CLIENT C2 on co.NUMCLIENT = C2.NUMCLIENT
+HAVING COUNT(co.NUMCLIENT) = 1
+group by C2.NUMCLIENT, C2.RS_CLIENT, C2.CA_CLIENT;
+
+--48
+SELECT cli.NUMCLIENT, cli.RS_CLIENT from CLIENT cli
+where cli.CA_CLIENT > ANY
+(SELECT cl.CA_CLIENT FROM CLIENT cl
+WHERE cl.NUMCATEGORIE = 1
+)
+order by cli.NUMCLIENT;
+
+--49
+SELECT cli.NUMCLIENT, cli.RS_CLIENT from CLIENT cli
+where cli.CA_CLIENT > all
+(SELECT cl.CA_CLIENT FROM CLIENT cl
+WHERE cl.NUMCATEGORIE = 1
+)
+order by cli.NUMCLIENT;
+
+--50
+SELECT cli.NUMCLIENT, cli.RS_CLIENT from CLIENT cli
+WHERE not EXISTS(SELECT distinct com.NUMCLIENT from COMMANDE com
+    where com.NUMCLIENT = cli.NUMCLIENT);
+
+--51
+INSERT INTO SECTEUR VALUES ('24','Québec');
+
+
+--52
+UPDATE ARTICLE
+SET QTE_STOCK = 600
+WHERE NUMARTICLE = 1;
+
+--53
+UPDATE ARTICLE a
+SET a.QTE_STOCK = (SELECT AVG(ar.QTE_MINI) from ARTICLE ar
+WHERE a.NUMFAMILLE = ar.NUMFAMILLE
+group by ar.NUMFAMILLE);
+
+select * from ARTICLE;
+
+
+
+
+
+
+
+
 
 
 

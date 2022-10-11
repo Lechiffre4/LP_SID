@@ -1,5 +1,6 @@
 public class CCompteEpargne extends CCompte
 {
+    //Ici, le taux de rémuneration est une données membre privée parce qu'il n'est pas nécessaire que d'autres parties du code en dehors de la classe y accèdent
     private float tauxRemuneration;
 
     //Constructeur de la classe  CCompte
@@ -21,6 +22,7 @@ public class CCompteEpargne extends CCompte
         System.out.println("Le taux de rémunération du compte est  : " + tauxRemuneration );
     }
 
+    //Calcul l'interet du compte ( le calcul était dans l'énoncé) et l'affiche
     void CalculInteret()
     {
         float interet = super.solde * tauxRemuneration;
