@@ -1,0 +1,7 @@
+table Client : 
+- prénom
+- nom
+- adresse
+- date de naissance
+- n° de tel
+- 

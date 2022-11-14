@@ -12,7 +12,7 @@ public class CHAP4TD {
                 System.out.println("2. Ajouter un minibus");
                 System.out.println("3. Modifier la capacité d'un minubus");
                 System.out.println("4. Quit");
-                System.out.println("========================= \n\n");
+                System.out.println("========================= \n");
 
                 System.out.println("Quel opération voulez vous faire : ");
                 Scanner scan = new Scanner(System.in);

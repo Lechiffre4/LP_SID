@@ -40,3 +40,4 @@ les données sont datées et associées à un référentiel temps.
 ### Données opérationnelles / décisionnelles 
 Data warehouse -> pas de données opérationnelles.
 
+

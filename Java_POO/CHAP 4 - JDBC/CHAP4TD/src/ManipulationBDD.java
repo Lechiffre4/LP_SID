@@ -16,7 +16,7 @@ public class ManipulationBDD {
 
         //Creation du statement
         Statement stmt=connection.createStatement();
-        ResultSet rs = stmt.executeQuery("select * from Minibus");
+        ResultSet rs = stmt.executeQuery("select * from Minibus order by NUMB");
         System.out.println("---------------");
         System.out.println("| ID | Capacité |");
         System.out.println("---------------");
