@@ -51,7 +51,11 @@ SELECT * FROM ADHERENT;
         v_idPaquetage SORTIE.NO_SORTIE%type := 0;
         v_caution PAQUETAGE.CAUTION%type := 0;
         v_credits ADHERENT.CREDITS%type := 0;
+
+        v_idSortie SORTIE.NO_SORTIE%type := 0;
+
     BEGIN
+        SELECT NO_SORTIE into v_idSortie from SORTIE where pnumsortie = NO_SORTIE;
 
         FOR enr in (SELECT NO_ADHERENT from PARTICIPE where PAYEE = 'V' and NO_SORTIE = pnumsortie)
         LOOP
@@ -75,21 +79,18 @@ SELECT * FROM ADHERENT;
         commit;
         RETURN 0;
 
-
         EXCEPTION
             WHEN NO_DATA_FOUND THEN
             DBMS_OUTPUT.PUT_LINE('Pas assez de paquetages');
             commit;
-            RAISE;
+            return -2;
             WHEN OTHERS THEN
-                RAISE_APPLICATION_ERROR(-20000, 'ERROR de code : '||SQLCODE||' Message d''erreur : '||SQLERRM);
+                DBMS_OUTPUT.PUT_LINE('ERROR de code : '||SQLCODE||' Message d''erreur : '||SQLERRM);
                 rollback;
                 return -1;
     end;
 
-
-SELECT * FROM USER_SOURCE;
-DESC USER_PROCEDURES;
-
+SELECT * FROM ADHERENT
+join PARTICIPE P on ADHERENT.NO_ADHERENT = P.NO_ADHERENT;
 
 
