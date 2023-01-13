@@ -20,6 +20,18 @@ public class CPoint {
         construct2 c2 = new construct2(text);
         throw c2;
     }
+
+    CPoint(int abs) throws construct3
+    {
+        String Text = "Constructeur 3";
+        if(abs == 0){
+            construct3 c3 = new construct3(Text);
+            throw c3;
+        }
+        this.x = abs; this.y = 0;
+        nbpoint++;
+
+    }
     void deplace (int dx, int dy)
     {
         this.x = this.x + dx;         this.y = this.y + dy;

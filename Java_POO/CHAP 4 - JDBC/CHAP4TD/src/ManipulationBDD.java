@@ -25,6 +25,7 @@ public class ManipulationBDD {
             System.out.println("---------------");
         }
         System.out.println("\n \n");
+        stmt.close();
         connection.close();
     }
 
@@ -40,6 +41,7 @@ public class ManipulationBDD {
         Statement stmt=connection.createStatement();
         int rs = stmt.executeUpdate("Insert into MINIBUS(NumB, Capacite) values ("+id+", "+capacity+")");
         System.out.println(rs + " Lignée(s) ajoutée(s)\n\n");
+        stmt.close();
         connection.close();
     }
 
@@ -56,6 +58,7 @@ public class ManipulationBDD {
         int rs = stmt.executeUpdate("Update MINIBUS set CAPACITE = "+capacity+" where NUMB = "+id);
 
         System.out.println(rs + " Lignée(s) modifiée(s)\n\n");
+        stmt.close();
         connection.close();
     }
 

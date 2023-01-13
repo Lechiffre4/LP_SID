@@ -6,6 +6,7 @@ public class Chap3TP
     {
         try
         {
+            CPoint c3 = new CPoint(0);
             CPoint c1 = new CPoint();
             CPoint c2 = new CPoint(1,2);
         }
@@ -17,6 +18,10 @@ public class Chap3TP
         catch(construct2 err2)
         {
             System.out.println("exception constructeur 2 : On passe par le constructeur : "+err2.gettext());
+            System.exit (-1);
+
+        } catch (construct3 e) {
+            System.out.println("exception du constructeur 3 : On passe par le constructeur"+ e.getText());
             System.exit (-1);
         }
     }

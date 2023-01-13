@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?PowerDesigner signature="Workspace" version="15.3.0.3248"?>
+<!-- Veuillez ne pas modifier ce fichier -->
+
+<Workspace>
+	<Local Expanded="Yes">
+		<Model Expanded="Yes" ID="{50F1EAE8-C84B-4286-B894-A2058EE65413}" Name="TP3 Cinema - Modelisation ED" Selected="Yes" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="TP3 Cinema - Modelisation ED.mpd"/>
+	</Local>
+	<BrowserModule Name="Référentiel"/>
+</Workspace>
