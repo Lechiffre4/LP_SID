@@ -72,14 +72,26 @@ CREATE OR REPLACE TRIGGER CalculMoyenneTemp
 
 CREATE OR REPLACE TRIGGER CalculMoyenne
     AFTER UPDATE OF NOTE or INSERT on RESULTCONT
-    FOR EACH ROW
     -- Calcul la moyenne de l'etudiant pour un module
     DECLARE
+        v_numstagiaire number;
         v_NoteModule number;
         v_moyenne number;
     BEGIN
-        SELECT AVG(NOTE) INTO v_NoteModule FROM TEMP_NOTE where TEMP_NOTE.NUMST = NUMSTAGIAIRE;
-        INSERT INTO RESULTMODULE VALUES (NUMSTAGIAIRE,CODEMODULE,v_NoteModule);
 
+
+        /* Calcul de la moyenne module */
+        FOR enr in ( SELECT * FROM TEMP_NOTE) Loop
+            SELECT AVG(tn.NOTE) INTO v_NoteModule FROM TEMP_NOTE tn;
+            INSERT INTO RESULTMODULE VALUES (enr.NUMST,enr.CODEMOD,v_NoteModule);
+        end loop;
+
+        /* Calcul de MoyGen Stagiaire
+        SELECT AVG(SUM(RESULTMODULE.MOYMODULE * C2.COEFF)/SUM(C2.COEFF)) INTO v_moyenne FROM RESULTMODULE join COURS C2 on RESULTMODULE.CODEMODULE = C2.CODEMODULE;
+        UPDATE STAGIAIRE SET MOYGENE = v_moyenne where STAGIAIRE.NUMSTAGIAIRE = v_numstagiaire;*/
 
     end;
+
+
+INSERT INTO RESULTCONT VALUES ('656541A','SR2',to_date('20201116','YYYYMMDD'),20);
+commit;
