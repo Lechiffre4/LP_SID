@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?PowerDesigner signature="Workspace" version="15.3.0.3248"?>
+<!-- Veuillez ne pas modifier ce fichier -->
+
+<Workspace>
+	<Local Expanded="Yes">
+		<Model Expanded="Yes" ID="{99528D77-EA39-4379-A82A-082F856CF18C}" Name="TP_Ninkasi_Sahel" Selected="Yes" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="TP_Ninkasi_Sahel.mpd"/>
+	</Local>
+	<BrowserModule Name="Référentiel"/>
+</Workspace>
