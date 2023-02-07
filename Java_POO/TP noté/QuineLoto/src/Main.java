@@ -6,7 +6,6 @@ public class Main {
 }
 
 /* TODO :
-- Option Annuler : n'actualise pas les affichages des noms
-- Option Annuler : ne remet pas du bleu sur le dernier bouton
+- Gérer les erreurs
 - Visuel : Essayer de réarranger les visuels
  */

@@ -1,5 +1,6 @@
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -22,18 +23,20 @@ public class Fenetre extends JFrame implements ActionListener {
     JMenuBar Menu = new JMenuBar();
     JMenu Options = new JMenu("Options");
     JMenuItem Restart = new JMenuItem("Restart");
+    JMenuItem Quit = new JMenuItem("Quit");
     JMenu Aide = new JMenu("Aide");
 
     ///////////////////////////////
 
     ////////////Top informations//////////////////
-    JLabel LastChoose = new JLabel("Dernier Sorti ");
-    JLabel LastNumber = new JLabel("0");
-    JLabel Current = new JLabel("En cours :");
-    JLabel CurrentNumber = new JLabel("0");
+    JLabel LastChoose = new JLabel("Dernier Sorti :");
+    JLabel LastNumber = new JLabel("0", SwingConstants.CENTER);
+    JLabel Current = new JLabel("En cours :", SwingConstants.RIGHT);
+    JLabel CurrentNumber = new JLabel("0", SwingConstants.CENTER);
     JButton Cancel = new JButton("Annuler");
     JPanel LeftInfos = new JPanel();
     JPanel RightInfos = new JPanel();
+    JPanel RightInfosColumn = new JPanel();
     //////////////////////////////////////////
 
     //////////////////////Grille///////////////////////
@@ -63,7 +66,9 @@ public class Fenetre extends JFrame implements ActionListener {
         //Ajout du menu
         Menu.add(Options);
         Restart.addActionListener(this);
+        Quit.addActionListener(this);
         Options.add(Restart);
+        Options.add(Quit);
         Menu.add(Aide);
         this.setJMenuBar(Menu);
         ///////////////////////////
@@ -93,46 +98,71 @@ public class Fenetre extends JFrame implements ActionListener {
 
         Infos.add(LeftInfos, BorderLayout.WEST);
         Infos.add(RightInfos, BorderLayout.EAST);
+        Infos.setBorder(new CompoundBorder(Infos.getBorder(), new EmptyBorder(0,50,20,50)));
 
 
         LastNumber.setPreferredSize(new Dimension(50,50));
         LastNumber.setOpaque(true);
         LastNumber.setBackground(Color.white);
+        LastNumber.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+        LastNumber.setFont(new Font(LastNumber.getFont().getName(), Font.BOLD,15));
 
 
-
-        CurrentNumber.setPreferredSize(new Dimension(50,50));
+        CurrentNumber.setPreferredSize(new Dimension(75,75));
         CurrentNumber.setBackground(Color.white);
+        CurrentNumber.setBorder(BorderFactory.createLineBorder(Color.black, 1));
         CurrentNumber.setOpaque(true);
+        CurrentNumber.setFont(new Font(CurrentNumber.getFont().getName(), Font.BOLD,25));
 
         Cancel.addActionListener(this);
+
+        RightInfosColumn.setLayout(new BorderLayout());
+
         LeftInfos.add(LastChoose);LeftInfos.add(LastNumber);
-        RightInfos.add(Current); RightInfos.add(CurrentNumber);RightInfos.add(Cancel);
+
+        RightInfos.add(RightInfosColumn); RightInfos.add(CurrentNumber);
+        RightInfosColumn.add(Current, BorderLayout.SOUTH);RightInfosColumn.add(Cancel,BorderLayout.NORTH);
+
+        Border border = Current.getBorder();
+        Border margin = new EmptyBorder(25,0,0,0);
+        Current.setBorder(new CompoundBorder(border, margin));
 
         //////////////////////////////
 
     }
+    public void Restart(){
+        CurrentNumber.setText("0");
+        LastNumber.setText("0");
+        Currentbtn = null;
+        for ( JButton i : historic)
+        {
+            i.setEnabled(true);
+            i.setBackground(null);
 
+        }
+        historic = new ArrayList<>();
+    }
+
+    public void Quit(){
+        System.exit(0);
+    }
     @Override
     public void actionPerformed(ActionEvent arg0) {
         System.out.println(arg0.getActionCommand());
 
+
+
         if(arg0.getActionCommand() == "Restart")
         {
-            CurrentNumber.setText("0");
-            LastNumber.setText("0");
-            Currentbtn = null;
-            for ( JButton i : historic)
-            {
-                i.setEnabled(true);
-                i.setBackground(null);
-
-            }
-            historic = new ArrayList<>();
+            Restart();
+        }
+        if(arg0.getActionCommand() == "Quit")
+        {
+            Quit();
         }
         else
         {
-            if (historic.size() == 0 )
+            if (historic.size() == 0 && arg0.getActionCommand() != "Annuler")
             {
                 Currentbtn = (JButton) arg0.getSource();
                 Currentbtn.setBackground(Color.blue);
@@ -142,10 +172,22 @@ public class Fenetre extends JFrame implements ActionListener {
             }
             else if (arg0.getActionCommand() == "Annuler")
             {
+
                 Currentbtn.setEnabled(true);
                 Currentbtn.setBackground(null);
-                Currentbtn = historic.get(historic.size()-2);
                 historic.remove(historic.size()-1);
+                Currentbtn = historic.get(historic.size()-1);
+                Currentbtn.setBackground(Color.blue);
+
+                if(historic.size() - 1 != 0) {
+                    CurrentNumber.setText(historic.get(historic.size() - 1).getText());
+                }else CurrentNumber.setText("0");
+
+
+                if(historic.size() - 2 != -1) {
+                    LastNumber.setText(historic.get(historic.size() - 2).getText());
+                }else LastNumber.setText("0");
+
 
             }
             else
