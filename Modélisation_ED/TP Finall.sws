@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?PowerDesigner signature="Workspace" version="15.3.0.3248"?>
+<!-- Veuillez ne pas modifier ce fichier -->
+
+<Workspace>
+	<Local Expanded="Yes">
+		<Model Expanded="Yes" ID="{200C71F3-17C1-441D-87E0-E07929A50595}" Name="TP Finale Exo1" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="TP Finale/TP Finale Exo1.mpd"/>
+		<Model Expanded="Yes" ID="{BB138B72-40D3-4F79-8E21-F52C2116E048}" Name="TP Finale Exo 2" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="TP Finale/TP Finale Exo 2.mpd"/>
+		<Model Expanded="Yes" ID="{4553CDE4-D167-4601-B29C-F49FCF4532CC}" Name="TP Finale Exo 3" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="TP Finale/TP Finale Exo 3.mpd"/>
+		<Model Expanded="Yes" ID="{19FA04ED-3D46-4B8F-B9A4-5DB4028AEE42}" Name="TP Finale Exo 4" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="TP Finale/TP Finale Exo 4.mpd"/>
+		<Model Expanded="Yes" ID="{11C36FF8-EBF4-4261-9ADA-0AA0F533DFBE}" Name="TP Finale Exo 5" Selected="Yes" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="TP Finale/TP Finale Exo 5.mpd"/>
+	</Local>
+	<BrowserModule Name="Référentiel"/>
+</Workspace>

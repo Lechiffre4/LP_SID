@@ -173,21 +173,18 @@ public class Fenetre extends JFrame implements ActionListener {
             else if (arg0.getActionCommand() == "Annuler")
             {
 
+                System.out.println(historic.size());
                 Currentbtn.setEnabled(true);
                 Currentbtn.setBackground(null);
-                historic.remove(historic.size()-1);
-                Currentbtn = historic.get(historic.size()-1);
-                Currentbtn.setBackground(Color.blue);
-
-                if(historic.size() - 1 != 0) {
-                    CurrentNumber.setText(historic.get(historic.size() - 1).getText());
-                }else CurrentNumber.setText("0");
-
-
-                if(historic.size() - 2 != -1) {
-                    LastNumber.setText(historic.get(historic.size() - 2).getText());
-                }else LastNumber.setText("0");
-
+                historic.remove(historic.size() - 1);
+                Currentbtn = historic.get(historic.size() - 1);
+                for (JButton i : historic) {
+                    if (i == historic.get(historic.size() - 1)) {
+                        i.setBackground(Color.blue);
+                        CurrentNumber.setText(i.getText());
+                        LastNumber.setText(historic.get(historic.size() - 2).getText());
+                    }
+                }
 
             }
             else

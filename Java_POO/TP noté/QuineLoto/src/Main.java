@@ -4,8 +4,3 @@ public class Main {
         Fenetre MainWindow = new Fenetre();
     }
 }
-
-/* TODO :
-- Gérer les erreurs
-- Visuel : Essayer de réarranger les visuels
- */
